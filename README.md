@@ -13,9 +13,9 @@ Arduino 1.6.4 IDE is used.
 ###PCB Design software and addons used
 
 1. Eagle 7.3.0: I use Standard but Light should still be able to open/modify the files.
-2. Seeed OPL libraries: Button, Connector, Diode (in repo)
-2. Seeedstudio Design Rule Check for 2 layers (in repo as SeeedStudio_2layer_DRU_no_angle_20140221.dru)
-3. Seeed Gerber Generater 2-layer board (in repo as Seeed_Gerber_Generater_2-layer.cam)
+2. Seeed OPL libraries: Button, Connector, Diode (in pcb libraries folder)
+2. Seeedstudio Design Rule Check for 2 layers (in repo as `SeeedStudio_2layer_DRU_no_angle_20140221.dru`)
+3. Seeed Gerber Generater 2-layer board (in repo as `Seeed_Gerber_Generater_2-layer.cam`)
 
 ###Schematic drawings
 
