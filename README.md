@@ -80,4 +80,4 @@ The zip file has been uploaded to the Releases section.
 Just use the provided `BOM File for Seeedstudio.csv`. I opted to do the assembly for only 5 pieces in case there are issues and I have to solder myself.
 
 ###Letters
-I 3D-printed the letters based on the STL file obtained from [thingverse](http://www.thingiverse.com/thing:15198).
+I 3D-printed the letters based on the STL files obtained from [thingverse](http://www.thingiverse.com/thing:15198).
