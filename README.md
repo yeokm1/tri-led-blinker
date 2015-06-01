@@ -19,6 +19,8 @@ Arduino 1.6.4 IDE is used.
 
 ###Schematic drawings
 
+Images are exported from Eagle at 600dpi.
+
 ![Screen](images/schematic.png)
 
 ![Screen](images/board.png)
