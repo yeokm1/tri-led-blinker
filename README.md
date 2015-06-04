@@ -45,7 +45,7 @@ The copper pour is connected to ground
 
 ###PCB fabrication
 
-PCB fabrication is currently done by [Seedestudio](https://www.seeedstudio.com/service/index.php?r=pcb) based on the following settings. Remember to consult the [order submission guidelines](http://support.seeedstudio.com/knowledgebase/articles/422482-fusion-pcb-order-submission-guidelines) before submitting. Use the provided Gerber generator to produce the Gerber files.
+PCB fabrication is currently done by [Seeedstudio](https://www.seeedstudio.com/service/index.php?r=pcb) based on the following settings. Remember to consult the [order submission guidelines](http://support.seeedstudio.com/knowledgebase/articles/422482-fusion-pcb-order-submission-guidelines) before submitting. Use the provided Gerber generator to produce the Gerber files.
 
 Seeedstudio requires the following gerber files to be zipped up for submission:
 
