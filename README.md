@@ -2,13 +2,25 @@
 
 A "simple" blinking gift for somebody. Has On-Off switch and a button to change the order of blinking.
 
+Blink orders:
+
+1. Forward
+2. Reverse
+3. Twice forward
+4. Twice reverse
+5. All
+
 ##Software
 
-Arduino 1.6.4 IDE is used.
-
+1. Arduino 1.6.5 IDE
+2. [Custom Lowpower library to support ATTiny85 by johnnie502](https://github.com/johnnie502/Low-Power/)
 
 ##Hardware
 
+##Prototype
+
+
+## Proposed PCB Design
 
 ###PCB Design software and addons used
 
