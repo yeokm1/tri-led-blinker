@@ -12,7 +12,7 @@
 
 
 typedef enum {
-  STATE_FORWARD, STATE_REVERSE, STATE_BLINK_TWICE_FORWARD, STATE_BLINK_ALL} 
+  STATE_FORWARD, STATE_REVERSE, STATE_BLINK_TWICE_FORWARD, STATE_BLINK_TWICE_BACKWARD, STATE_BLINK_ALL} 
 BLINK_STATE ;
 volatile BLINK_STATE blinkState = STATE_FORWARD;
 
@@ -53,6 +53,8 @@ void loop() {
       case STATE_REVERSE: blinkReverse();
       break;
       case STATE_BLINK_TWICE_FORWARD: blinkTwiceForward();
+      break;
+      case STATE_BLINK_TWICE_BACKWARD: blinkTwiceBackward();
       break;
       case STATE_BLINK_ALL: blinkAll();
       break;
@@ -128,8 +130,27 @@ void blinkTwiceForward(){
     timesBlinkedAtOneSpot = 0;
     currentPinToLight++;
   }
+}
 
-  
+void blinkTwiceBackward(){
+  if(currentPinToLight < 0){
+    currentPinToLight = NUM_LETTERS - 1;
+  }
+
+  if(timesBlinkedAtOneSpot == 0){
+      onlyTurnOnThisLED(currentPinToLight);
+      timesBlinkedAtOneSpot++;
+  } else if(timesBlinkedAtOneSpot == 1){
+      writeToAllLeds(false);
+      timesBlinkedAtOneSpot++;
+  } else if(timesBlinkedAtOneSpot == 2){
+      onlyTurnOnThisLED(currentPinToLight);
+      timesBlinkedAtOneSpot++;
+  } else {
+    writeToAllLeds(false);
+    timesBlinkedAtOneSpot = 0;
+    currentPinToLight--;
+  }
 }
 
 void blinkAll(){
@@ -161,7 +182,9 @@ void buttonPressed(){
     break;
     case STATE_REVERSE: blinkState = STATE_BLINK_TWICE_FORWARD;
     break;
-    case STATE_BLINK_TWICE_FORWARD: blinkState = STATE_BLINK_ALL;
+    case STATE_BLINK_TWICE_FORWARD: blinkState = STATE_BLINK_TWICE_BACKWARD;
+    break;
+    case STATE_BLINK_TWICE_BACKWARD: blinkState = STATE_BLINK_ALL;
     break;
     case STATE_BLINK_ALL : blinkState = STATE_FORWARD;
     break;
