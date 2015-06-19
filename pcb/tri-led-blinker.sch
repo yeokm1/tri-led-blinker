@@ -4530,10 +4530,10 @@ Mors, distributor Buerklin, 11G702</description>
 <net name="N$5" class="0">
 <segment>
 <pinref part="K1" gate="G$1" pin="A0"/>
-<pinref part="JP1" gate="A" pin="3"/>
 <wire x1="101.6" y1="73.66" x2="101.6" y2="82.55" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="66.04" x2="152.4" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="73.66" x2="101.6" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="JP1" gate="A" pin="4"/>
+<wire x1="101.6" y1="73.66" x2="149.86" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="73.66" x2="149.86" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -4574,10 +4574,6 @@ Mors, distributor Buerklin, 11G702</description>
 </sheets>
 <errors>
 <approved hash="117,1,43.18,25.4,SHIELD,,,,,"/>
-<approved hash="113,1,103.357,119.38,K1,,,,,"/>
-<approved hash="113,1,89.5773,27.94,SW1,,,,,"/>
-<approved hash="113,1,153.801,93.7429,JP1,,,,,"/>
-<approved hash="113,1,150.999,73.8971,JP2,,,,,"/>
 </errors>
 </schematic>
 </drawing>
