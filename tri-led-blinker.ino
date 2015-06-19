@@ -1,3 +1,4 @@
+#include "LowPower.h"
 #define NUM_LETTERS 3
 
 #define PIN_L1 PB0
@@ -69,6 +70,8 @@ void loop() {
 
 
   delay(10);
+
+  LowPower.powerSave(SLEEP_60MS, ADC_OFF, BOD_OFF, TIMER2_ON); 
 }
 
 
