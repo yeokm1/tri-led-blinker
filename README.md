@@ -19,6 +19,13 @@ Blink orders:
 
 ##Prototype
 
+###Parts used that are different from PCB design
+1. [Adafruit LED Sequin (Ruby Red)](https://www.adafruit.com/products/1755)
+2. [Adafruit LED Sequin (Emerald Green)](https://www.adafruit.com/products/1756)
+3. [Adafruit LED Sequin (Royal Blue)](https://www.adafruit.com/products/1757)
+4. [Adafruit USB Micro-B Breakout Board](https://www.adafruit.com/products/1833)
+5. [Adafruit Perma-Proto Half-sized Breadboard PCB - Single](https://www.adafruit.com/products/1609)
+
 
 ## Proposed PCB Design
 
