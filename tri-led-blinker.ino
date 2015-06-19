@@ -71,9 +71,6 @@ void loop() {
     buttonPressed();
   }
 
-
-  delay(10);
-
   LowPower.powerSave(SLEEP_60MS, ADC_OFF, BOD_OFF, TIMER2_ON); 
 }
 
