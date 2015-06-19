@@ -1,15 +1,39 @@
 #define NUM_LETTERS 3
 
-#define PIN_W1 PB0
-#define PIN_J2 PB1
-#define PIN_S3 PB2
+#define PIN_L1 PB0
+#define PIN_L2 PB1
+#define PIN_L3 PB2
+#define PIN_BUTTON PB3
+
+//Accept only one button input every 0.3s
+#define DEBOUNCE_TIME 300 //0.3s
 
 
-const int PINS[NUM_LETTERS] = {PIN_W1, PIN_J2, PIN_S3};
+#define DELAY_BETWEEN_LETTERS 750
+
+
+typedef enum {
+  STATE_FORWARD, STATE_REVERSE, STATE_BLINK_ALL} 
+BLINK_STATE ;
+volatile BLINK_STATE blinkState = STATE_FORWARD;
+
+
+const int PINS[NUM_LETTERS] = {PIN_L1, PIN_L2, PIN_L3};
+
 
 int currentPinToLight = 0;
 
+bool allCurrentlyOn = false;
+
+
+//Initialise the last time the button is pressed
+long buttonLastPressedTime = millis();
+
+long timeLastBlink = millis();
+
 void setup() {
+
+  pinMode(PIN_BUTTON, INPUT);
   
   for(int currentPos = 0; currentPos < NUM_LETTERS; currentPos++){
     pinMode(PINS[currentPos], OUTPUT);
@@ -18,6 +42,45 @@ void setup() {
 }
 
 void loop() {
+
+  if(shouldProceedToNextBlink()){
+  
+    switch(blinkState){
+      case STATE_FORWARD: blinkForward();
+      break;
+      case STATE_REVERSE: blinkReverse();
+      break;
+      case STATE_BLINK_ALL: blinkAll();
+      break;
+      default: blinkForward();
+    }
+   }
+  
+  
+  if(isButtonPressed()){
+    buttonPressed();
+  }
+
+
+  delay(10);
+}
+
+
+bool isButtonPressed(){
+  int buttonState = digitalRead(PIN_BUTTON);
+  long currentTime = millis();
+   
+  //This code is to debounce the button input.
+  if(buttonState == LOW && ((currentTime - buttonLastPressedTime) > DEBOUNCE_TIME)){
+    buttonLastPressedTime = currentTime;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void blinkForward(){
+
   if(currentPinToLight >= NUM_LETTERS){
     currentPinToLight = 0;
   }
@@ -25,10 +88,57 @@ void loop() {
   onlyTurnOnThisLED(currentPinToLight);
    
   currentPinToLight++;
-  
-  customDelayBetweenLetters();
 
-  customDelayBetweenLetters();
+}
+
+
+
+void blinkReverse(){
+
+  if(currentPinToLight < 0){
+    currentPinToLight = NUM_LETTERS - 1;
+  }
+   
+  onlyTurnOnThisLED(currentPinToLight);
+   
+  currentPinToLight--;
+}
+
+void blinkAll(){
+  
+  allCurrentlyOn = !allCurrentlyOn;
+
+  int value = allCurrentlyOn ? HIGH : LOW;
+
+  for(int currentPos = 0; currentPos < NUM_LETTERS; currentPos++){
+    digitalWrite(PINS[currentPos], value);
+  }
+  
+}
+
+bool shouldProceedToNextBlink(){
+  long currentTime = millis();
+  
+
+  if((currentTime - timeLastBlink) > DELAY_BETWEEN_LETTERS){
+    timeLastBlink = currentTime;
+    return true;
+  }
+
+  return false;
+}
+
+
+void buttonPressed(){
+  switch(blinkState){
+    case STATE_FORWARD: blinkState = STATE_REVERSE;
+    break;
+    case STATE_REVERSE: blinkState = STATE_BLINK_ALL;
+    break;
+    case STATE_BLINK_ALL : blinkState = STATE_FORWARD;
+    break;
+    default: blinkState = STATE_FORWARD;
+  }
 }
 
 
@@ -44,7 +154,5 @@ void onlyTurnOnThisLED(int pinPositionNumber){
   }
 }
 
-void customDelayBetweenLetters(){
-  delay(750);
 
-}
+
