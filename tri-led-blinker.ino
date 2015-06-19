@@ -1,6 +1,9 @@
 #include "LowPower.h"
 #define NUM_LETTERS 3
 
+//Uncomment this if you want to skip the reverse states
+//#define REDUCE_FUNCTION
+
 #define PIN_L1 PB0
 #define PIN_L2 PB1
 #define PIN_L3 PB2
@@ -178,6 +181,21 @@ bool shouldProceedToNextBlink(){
   return false;
 }
 
+#ifdef REDUCE_FUNCTION
+
+void buttonPressed(){
+  switch(blinkState){
+    case STATE_FORWARD: blinkState = STATE_BLINK_TWICE_FORWARD;
+    break;
+    case STATE_BLINK_TWICE_FORWARD: blinkState = STATE_BLINK_ALL;
+    break;
+    case STATE_BLINK_ALL : blinkState = STATE_FORWARD;
+    break;
+    default: blinkState = STATE_FORWARD;
+  }
+}
+
+#else
 
 void buttonPressed(){
   switch(blinkState){
@@ -194,6 +212,10 @@ void buttonPressed(){
     default: blinkState = STATE_FORWARD;
   }
 }
+
+#endif
+
+
 
 
 void writeToAllLeds(int state){
