@@ -8,12 +8,11 @@
 //Accept only one button input every 0.3s
 #define DEBOUNCE_TIME 300 //0.3s
 
-
 #define DELAY_BETWEEN_LETTERS 750
 
 
 typedef enum {
-  STATE_FORWARD, STATE_REVERSE, STATE_BLINK_ALL} 
+  STATE_FORWARD, STATE_REVERSE, STATE_BLINK_TWICE_FORWARD, STATE_BLINK_ALL} 
 BLINK_STATE ;
 volatile BLINK_STATE blinkState = STATE_FORWARD;
 
@@ -30,6 +29,9 @@ bool allCurrentlyOn = false;
 long buttonLastPressedTime = millis();
 
 long timeLastBlink = millis();
+
+
+int timesBlinkedAtOneSpot = 0;
 
 void setup() {
 
@@ -49,6 +51,8 @@ void loop() {
       case STATE_FORWARD: blinkForward();
       break;
       case STATE_REVERSE: blinkReverse();
+      break;
+      case STATE_BLINK_TWICE_FORWARD: blinkTwiceForward();
       break;
       case STATE_BLINK_ALL: blinkAll();
       break;
@@ -104,15 +108,37 @@ void blinkReverse(){
   currentPinToLight--;
 }
 
+
+void blinkTwiceForward(){
+  if(currentPinToLight >= NUM_LETTERS){
+    currentPinToLight = 0;
+  }
+
+  if(timesBlinkedAtOneSpot == 0){
+      onlyTurnOnThisLED(currentPinToLight);
+      timesBlinkedAtOneSpot++;
+  } else if(timesBlinkedAtOneSpot == 1){
+      writeToAllLeds(false);
+      timesBlinkedAtOneSpot++;
+  } else if(timesBlinkedAtOneSpot == 2){
+      onlyTurnOnThisLED(currentPinToLight);
+      timesBlinkedAtOneSpot++;
+  } else {
+    writeToAllLeds(false);
+    timesBlinkedAtOneSpot = 0;
+    currentPinToLight++;
+  }
+
+  
+}
+
 void blinkAll(){
   
   allCurrentlyOn = !allCurrentlyOn;
 
   int value = allCurrentlyOn ? HIGH : LOW;
 
-  for(int currentPos = 0; currentPos < NUM_LETTERS; currentPos++){
-    digitalWrite(PINS[currentPos], value);
-  }
+  writeToAllLeds(value);
   
 }
 
@@ -133,7 +159,9 @@ void buttonPressed(){
   switch(blinkState){
     case STATE_FORWARD: blinkState = STATE_REVERSE;
     break;
-    case STATE_REVERSE: blinkState = STATE_BLINK_ALL;
+    case STATE_REVERSE: blinkState = STATE_BLINK_TWICE_FORWARD;
+    break;
+    case STATE_BLINK_TWICE_FORWARD: blinkState = STATE_BLINK_ALL;
     break;
     case STATE_BLINK_ALL : blinkState = STATE_FORWARD;
     break;
@@ -141,6 +169,12 @@ void buttonPressed(){
   }
 }
 
+
+void writeToAllLeds(int state){
+  for(int currentPos = 0; currentPos < NUM_LETTERS; currentPos++){
+    digitalWrite(PINS[currentPos], state);
+  }
+}
 
 void onlyTurnOnThisLED(int pinPositionNumber){
 
