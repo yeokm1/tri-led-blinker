@@ -19,6 +19,21 @@ Blink orders:
 
 ##Prototype
 
+![Screen](images/front-lit.jpg)
+
+Front view with all LEDs lit
+
+![Screen](images/back.jpg)
+
+Back view
+
+###Demo video on Youtube
+
+[![](http://img.youtube.com/vi/Z5MDIierKuw/0.jpg)](https://www.youtube.com/watch?v=Z5MDIierKuw)
+
+
+
+
 ###Parts used that are different from PCB design
 1. [Adafruit LED Sequin (Ruby Red)](https://www.adafruit.com/products/1755)
 2. [Adafruit LED Sequin (Emerald Green)](https://www.adafruit.com/products/1756)
